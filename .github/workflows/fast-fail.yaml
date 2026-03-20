@@ -9,10 +9,10 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python-version: [3.11, 3.12, 3.13]
+        python-version: [3.10, 3.11, 3.12]
         exclude:
           - os: windows-latest
-            python-version: 3.11
+            python-version: 3.10
 
     runs-on: ${{ matrix.os }}
 
@@ -26,5 +26,5 @@ jobs:
         run: python --version
 
       - name: Force failure (only for demo)
-        if: matrix.python-version == '3.13' && matrix.os == 'ubuntu-latest'
+        if: matrix.python-version == '3.12' && matrix.os == 'ubuntu-latest'
         run: exit 1
