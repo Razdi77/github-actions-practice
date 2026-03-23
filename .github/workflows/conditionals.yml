@@ -1,0 +1,46 @@
+name: Conditionals Demo
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  conditional-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+    
+      - name: Run only on main
+        if: github.ref == 'refs/heads/main'
+        run: echo "This runs only on main branch"
+
+      
+      - name: Fail step
+        run: exit 1
+
+      
+      - name: Run if failure
+        if: failure()
+        run: echo "Previous step failed, so this runs"
+
+      
+      - name: Continue on error example
+        continue-on-error: true
+        run: |
+          echo "This step will fail but won't stop the job"
+          exit 1
+
+      - name: Still runs after error
+        run: echo "Workflow continues despite failure above"
+
+
+  push-only-job:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Push only execution
+        run: echo "This job runs only for push events"
