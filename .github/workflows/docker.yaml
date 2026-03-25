@@ -1,0 +1,24 @@
+name: Use Secrets as Environment Variables
+
+on:
+  push:
+
+jobs:
+  docker-auth-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Use Secrets Securely
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+        run: |
+          echo "Logging into Docker..."
+
+          # Use secrets WITHOUT hardcoding
+          echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+          echo "Login command executed successfully"
