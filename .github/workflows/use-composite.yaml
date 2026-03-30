@@ -15,7 +15,7 @@ jobs:
 
       - name: Run Custom Composite Action
         id: greet_step
-        uses: ./.github/actions/setup-and-greet
+        uses: ./.github/actions
         with:
           name: "Arjun"
           language: "en"
