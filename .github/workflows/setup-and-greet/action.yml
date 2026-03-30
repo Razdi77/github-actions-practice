@@ -1,22 +1,20 @@
-name: "Setup and Greet"
-description: "A composite action to greet and print system info"
-
+---
+name: Setup and Greet
+description: A composite action to greet and print system info
 inputs:
   name:
-    description: "Name of the person"
+    description: Name of the person
     required: true
   language:
-    description: "Language for greeting"
+    description: Language for greeting
     required: false
-    default: "en"
-
+    default: en
 outputs:
   greeted:
-    description: "Indicates greeting was successful"
+    description: Indicates greeting was successful
     value: ${{ steps.set_output.outputs.greeted }}
-
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Print Greeting
       shell: bash
@@ -27,13 +25,11 @@ runs:
           fr) echo "Bonjour, ${{ inputs.name }}!" ;;
           *)  echo "Hello, ${{ inputs.name }}!" ;;
         esac
-
     - name: Print System Info
       shell: bash
       run: |
         echo "Date: $(date)"
         echo "Runner OS: $RUNNER_OS"
-
     - name: Set Output
       id: set_output
       shell: bash
